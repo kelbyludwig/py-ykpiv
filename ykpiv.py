@@ -66,23 +66,4 @@ def hex_decode(hex_ascii):
     out_len = ffi.new("size_t *", hex_ascii_len // 2)
     rc = _ykpiv.ykpiv_hex_decode(hex_in, hex_in_len, hex_out, out_len)
     _assert_ok(rc)
-    return ffi.string(hex_out)
-
-
-if __name__ == "__main__":
-    # simple functional test
-    import sys
-    from binascii import hexlify
-
-    assert hex_decode(b"deadbeef") == b"\xde\xad\xbe\xef"
-    state = init(verbose=True)
-    readers = list_readers(state)
-    if not len(readers):
-        print("no readers to connect to")
-        sys.exit(1)
-    connect(state, readers[0])
-    verify(state, b"123456")
-    signature = sign_data(state, b"a" * 256)
-    print(hexlify(bytearray(signature)))
-    disconnect(state)
-    print("done!")
+    return bytes(ffi.buffer(hex_out, out_len[0]))
