@@ -14,11 +14,20 @@ def init(verbose=False):
 
 
 def list_readers(state):
-    readers = ffi.new("char[2048]")
-    readers_len = ffi.new("size_t *", 2048)
+    buffer_size = 2048
+    readers = ffi.new("char[%d]" % buffer_size)
+    readers_len = ffi.new("size_t *", buffer_size)
     rc = _ykpiv.ykpiv_list_readers(state, readers, readers_len)
     _assert_ok(rc)
-    return ffi.string(readers)
+    readers_list_bytes = ffi.unpack(readers, buffer_size)
+    readers_list_bytes = readers_list_bytes.rstrip(b'\x00')
+    return readers_list_bytes.split(b"\x00")
+
+
+def connect(state, wanted):
+    wanted = ffi.new("const char[]", wanted)
+    rc = _ykpiv.ykpiv_connect(state, wanted)
+    _assert_ok(rc)
 
 
 def hex_decode(hex_ascii):
@@ -34,6 +43,12 @@ def hex_decode(hex_ascii):
 
 if __name__ == "__main__":
     # simple functional test
+    import sys
     assert hex_decode(b"deadbeef") == b"\xde\xad\xbe\xef"
-    state = init()
-    print(list_readers(state))
+    state = init(verbose=True)
+    readers = list_readers(state)
+    if not len(readers):
+        print("no readers to connect to")
+        sys.exit(1)
+    connect(state, readers[0])
+    print('done!')
