@@ -9,7 +9,7 @@ build:
 	pipenv run python ykpiv_build.py
 
 format:
-	pipenv run black ykpiv.py ykpiv_build.py
+	pipenv run black ykpiv.py ykpiv_build.py test_ykpiv.py
 
 test:
-	pipenv run python ykpiv.py
+	pipenv run pytest
