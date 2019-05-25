@@ -1,4 +1,8 @@
 import ykpiv
+import pytest
+
+DEFAULT_PIN = b"123456"
+DEFAULT_MGM_KEY = b"010203040506070801020304050607080102030405060708"
 
 
 class TestYKPIV(object):
@@ -17,6 +21,12 @@ class TestYKPIV(object):
     def test_hex_decode(self):
         assert ykpiv.hex_decode(b"deadbeef") == b"\xde\xad\xbe\xef"
         assert (
-            ykpiv.hex_decode(b"010203040506070801020304050607080102030405060708")
+            ykpiv.hex_decode(DEFAULT_MGM_KEY)
             == b"\x01\x02\x03\x04\x05\x06\x07\x08\x01\x02\x03\x04\x05\x06\x07\x08\x01\x02\x03\x04\x05\x06\x07\x08"
         )
+
+    def test_verify(self):
+        ykpiv.verify(TestYKPIV.state, DEFAULT_PIN)
+        with pytest.raises(Exception):
+            ykpiv.verify(TestYKPIV.state, b"111111")
+        ykpiv.verify(TestYKPIV.state, DEFAULT_PIN)
