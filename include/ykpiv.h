@@ -1,3 +1,7 @@
+#define YKPIV_KEY_SIGNATURE 0x9c
+#define YKPIV_ALGO_RSA1024 0x06
+#define YKPIV_ALGO_RSA2048 0x07
+
 typedef enum {
   YKPIV_OK = 0,
   YKPIV_MEMORY_ERROR = -1,
@@ -26,3 +30,4 @@ ykpiv_rc ykpiv_hex_decode(const char *hex_in, size_t in_len, unsigned char *hex_
 ykpiv_rc ykpiv_connect(ykpiv_state *state, const char *wanted);
 ykpiv_rc ykpiv_disconnect(ykpiv_state *state);
 ykpiv_rc ykpiv_verify(ykpiv_state *state, const char *pin, int *tries);
+ykpiv_rc ykpiv_sign_data(ykpiv_state *state, const unsigned char *sign_in, size_t in_len, unsigned char *sign_out, size_t *out_len, unsigned char algorithm, unsigned char key);

@@ -42,6 +42,22 @@ def verify(state, pin):
     _assert_ok(rc)
 
 
+def sign_data(state, data):
+    # ykpiv_sign_data assumes input is already padded
+    assert len(data) == 256
+    sign_in = ffi.new("const char []", data)
+    in_len = ffi.cast("size_t", len(data))
+    sign_out = ffi.new("unsigned char[256]")
+    out_len = ffi.new("size_t *", 256)
+    algorithm = ffi.cast("unsigned char", _ykpiv.YKPIV_ALGO_RSA2048)
+    key = ffi.cast("unsigned char", _ykpiv.YKPIV_KEY_SIGNATURE)  # slot 0x9c
+    rc = _ykpiv.ykpiv_sign_data(
+        state, sign_in, in_len, sign_out, out_len, algorithm, key
+    )
+    _assert_ok(rc)
+    return ffi.unpack(sign_out, out_len[0])
+
+
 def hex_decode(hex_ascii):
     hex_ascii_len = len(hex_ascii)
     hex_in = ffi.new("const char[]", hex_ascii)
@@ -56,6 +72,7 @@ def hex_decode(hex_ascii):
 if __name__ == "__main__":
     # simple functional test
     import sys
+    from binascii import hexlify
 
     assert hex_decode(b"deadbeef") == b"\xde\xad\xbe\xef"
     state = init(verbose=True)
@@ -65,5 +82,7 @@ if __name__ == "__main__":
         sys.exit(1)
     connect(state, readers[0])
     verify(state, b"123456")
+    signature = sign_data(state, b"a" * 256)
+    print(hexlify(bytearray(signature)))
     disconnect(state)
     print("done!")
