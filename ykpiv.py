@@ -20,7 +20,7 @@ def list_readers(state):
     rc = _ykpiv.ykpiv_list_readers(state, readers, readers_len)
     _assert_ok(rc)
     readers_list_bytes = ffi.unpack(readers, buffer_size)
-    readers_list_bytes = readers_list_bytes.rstrip(b'\x00')
+    readers_list_bytes = readers_list_bytes.rstrip(b"\x00")
     return readers_list_bytes.split(b"\x00")
 
 
@@ -44,6 +44,7 @@ def hex_decode(hex_ascii):
 if __name__ == "__main__":
     # simple functional test
     import sys
+
     assert hex_decode(b"deadbeef") == b"\xde\xad\xbe\xef"
     state = init(verbose=True)
     readers = list_readers(state)
@@ -51,4 +52,4 @@ if __name__ == "__main__":
         print("no readers to connect to")
         sys.exit(1)
     connect(state, readers[0])
-    print('done!')
+    print("done!")
