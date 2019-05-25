@@ -35,6 +35,13 @@ def disconnect(state):
     _assert_ok(rc)
 
 
+def verify(state, pin):
+    pin = ffi.new("const char[]", pin)
+    _tries = ffi.new("int *")
+    rc = _ykpiv.ykpiv_verify(state, pin, _tries)
+    _assert_ok(rc)
+
+
 def hex_decode(hex_ascii):
     hex_ascii_len = len(hex_ascii)
     hex_in = ffi.new("const char[]", hex_ascii)
@@ -57,5 +64,6 @@ if __name__ == "__main__":
         print("no readers to connect to")
         sys.exit(1)
     connect(state, readers[0])
+    verify(state, b"123456")
     disconnect(state)
     print("done!")
