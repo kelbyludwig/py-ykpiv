@@ -11,5 +11,5 @@ build:
 format:
 	pipenv run black ykpiv.py ykpiv_build.py test_ykpiv.py
 
-test:
+test: build
 	pipenv run pytest
