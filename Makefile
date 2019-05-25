@@ -1,4 +1,4 @@
-.PHONY: build clean test
+.PHONY: build clean test format
 
 all: build
 
@@ -7,6 +7,9 @@ clean:
 
 build:
 	pipenv run python ykpiv_build.py
+
+format:
+	pipenv run black ykpiv.py ykpiv_build.py
 
 test:
 	pipenv run python ykpiv.py
