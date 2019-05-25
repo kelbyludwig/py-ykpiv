@@ -30,6 +30,11 @@ def connect(state, wanted):
     _assert_ok(rc)
 
 
+def disconnect(state):
+    rc = _ykpiv.ykpiv_disconnect(state)
+    _assert_ok(rc)
+
+
 def hex_decode(hex_ascii):
     hex_ascii_len = len(hex_ascii)
     hex_in = ffi.new("const char[]", hex_ascii)
@@ -52,4 +57,5 @@ if __name__ == "__main__":
         print("no readers to connect to")
         sys.exit(1)
     connect(state, readers[0])
+    disconnect(state)
     print("done!")

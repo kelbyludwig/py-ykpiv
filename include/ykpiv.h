@@ -24,3 +24,4 @@ ykpiv_rc ykpiv_init(ykpiv_state **state, int verbose);
 ykpiv_rc ykpiv_list_readers(ykpiv_state *state, char *readers, size_t *len);
 ykpiv_rc ykpiv_hex_decode(const char *hex_in, size_t in_len, unsigned char *hex_out, size_t *out_len);
 ykpiv_rc ykpiv_connect(ykpiv_state *state, const char *wanted);
+ykpiv_rc ykpiv_disconnect(ykpiv_state *state);
