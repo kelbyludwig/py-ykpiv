@@ -12,7 +12,7 @@ Tested with a Yubikey Neo and `ykpiv` bundled with version 1.6.1 of `yubico-piv-
 | `ykpiv_done`                       | ⛔           |                   |
 | `ykpiv_connect`                    | ✅           | `connect`         |
 | `ykpiv_list_readers`               | ✅           | `list_readers`    |
-| `ykpiv_disconnect`                 | ⛔           |                   |
+| `ykpiv_disconnect`                 | ✅           | `disconnect`      |
 | `ykpiv_transfer_data`              | ⛔           |                   |
 | `ykpiv_authenticate`               | ⛔           |                   |
 | `ykpiv_set_mgmkey`                 | ⛔           |                   |
