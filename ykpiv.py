@@ -7,6 +7,9 @@ def _assert_ok(rc):
 
 
 def init(verbose=False):
+    """Initializes and returns a ykpiv_state object that is used as an input to
+    most libykpiv calls.
+    """
     state_handle = ffi.new("ykpiv_state **")
     rc = _ykpiv.ykpiv_init(state_handle, verbose)
     _assert_ok(rc)
@@ -14,6 +17,8 @@ def init(verbose=False):
 
 
 def list_readers(state):
+    """Returns a list of available smart cards.
+    """
     buffer_size = 2048
     readers = ffi.new("char[%d]" % buffer_size)
     readers_len = ffi.new("size_t *", buffer_size)
@@ -25,22 +30,37 @@ def list_readers(state):
 
 
 def connect(state, wanted):
+    """Connect to the smart card corresponding to the `wanted` value.
+
+    `wanted` will likely be a value from `list_readers`.
+    """
     wanted = ffi.new("const char[]", wanted)
     rc = _ykpiv.ykpiv_connect(state, wanted)
     _assert_ok(rc)
 
 
 def disconnect(state):
+    """Disconnect from a smart card.
+
+    `disconnect` is called within `done` so it is preferred to call `done`.
+    """
     rc = _ykpiv.ykpiv_disconnect(state)
     _assert_ok(rc)
 
 
 def done(state):
+    """Terminate a connection with a smart card and cleanup.
+
+    `done` does additional cleanup work that `disconnect` does not so usage of
+    `done` is preferred.
+    """
     rc = _ykpiv.ykpiv_done(state)
     _assert_ok(rc)
 
 
 def verify(state, pin):
+    """Authenticate to the smart card using the provided user PIN.
+    """
     pin = ffi.new("const char[]", pin)
     _tries = ffi.new("int *")
     rc = _ykpiv.ykpiv_verify(state, pin, _tries)
@@ -48,6 +68,10 @@ def verify(state, pin):
 
 
 def sign_data(state, data):
+    """Use a slots private key to sign `data`.
+
+    TODO(kkl): Both the slot and the algorithm are hardcoded. Parameterize.
+    """
     # ykpiv_sign_data assumes input is already padded
     assert len(data) == 256
     sign_in = ffi.new("const char []", data)
@@ -64,6 +88,8 @@ def sign_data(state, data):
 
 
 def hex_decode(hex_ascii):
+    """Decodes `hex_ascii`, a string of hex ascii characters, into the byte representation.
+    """
     hex_ascii_len = len(hex_ascii)
     hex_in = ffi.new("const char[]", hex_ascii)
     hex_in_len = ffi.cast("size_t", hex_ascii_len)
