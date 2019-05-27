@@ -32,3 +32,4 @@ ykpiv_rc ykpiv_disconnect(ykpiv_state *state);
 ykpiv_rc ykpiv_verify(ykpiv_state *state, const char *pin, int *tries);
 ykpiv_rc ykpiv_sign_data(ykpiv_state *state, const unsigned char *sign_in, size_t in_len, unsigned char *sign_out, size_t *out_len, unsigned char algorithm, unsigned char key);
 ykpiv_rc ykpiv_done(ykpiv_state *state);
+ykpiv_rc ykpiv_get_version(ykpiv_state *state, char *version, size_t len);

@@ -23,7 +23,7 @@ no, probably not.
 | `ykpiv_hex_decode`                 | ✅           | `hex_decode`      |
 | `ykpiv_sign_data`                  | ✅           | `sign_data`       |
 | `ykpiv_decipher_data`              | ⛔           |                   |
-| `ykpiv_get_version`                | ⛔           |                   |
+| `ykpiv_get_version`                | ✅           | `get_version`     |
 | `ykpiv_verify`                     | ✅           | `verify`          |
 | `ykpiv_change_pin`                 | ⛔           |                   |
 | `ykpiv_change_puk`                 | ⛔           |                   |

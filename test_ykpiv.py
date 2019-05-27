@@ -30,3 +30,7 @@ class TestYKPIV(object):
         with pytest.raises(Exception):
             ykpiv.verify(TestYKPIV.state, b"111111")
         ykpiv.verify(TestYKPIV.state, DEFAULT_PIN)
+
+    def test_get_version(self):
+        version = ykpiv.get_version(TestYKPIV.state)
+        assert len(version.split(b".")) == 3

@@ -87,6 +87,16 @@ def sign_data(state, data):
     return ffi.unpack(sign_out, out_len[0])
 
 
+def get_version(state):
+    """Get the version string for the connected smart card. 
+    """
+    version = ffi.new("char []", 256)
+    version_len = ffi.cast("size_t", 256)
+    rc = _ykpiv.ykpiv_get_version(state, version, version_len)
+    _assert_ok(rc)
+    return ffi.string(version)
+
+
 def hex_decode(hex_ascii):
     """Decodes `hex_ascii`, a string of hex ascii characters, into the byte representation.
     """
