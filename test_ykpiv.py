@@ -5,6 +5,26 @@ DEFAULT_PIN = b"123456"
 DEFAULT_MGM_KEY = b"010203040506070801020304050607080102030405060708"
 
 
+def test_verify():
+    state = ykpiv.init()
+    readers = ykpiv.list_readers(state)
+    assert len(readers) >= 1, "no yubikey detected"
+    assert len(readers) == 1, "multiple yubikeys detected"
+    ykpiv.connect(state, readers[0])
+    ykpiv.verify(state, DEFAULT_PIN)
+    ykpiv.done(state)
+
+
+def test_authenticate():
+    state = ykpiv.init()
+    readers = ykpiv.list_readers(state)
+    assert len(readers) >= 1, "no yubikey detected"
+    assert len(readers) == 1, "multiple yubikeys detected"
+    ykpiv.connect(state, readers[0])
+    ykpiv.authenticate(state, DEFAULT_MGM_KEY)
+    ykpiv.done(state)
+
+
 class TestYKPIV(object):
 
     state = None

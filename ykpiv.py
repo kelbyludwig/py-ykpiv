@@ -97,6 +97,15 @@ def get_version(state):
     return ffi.string(version)
 
 
+def authenticate(state, key):
+    """Authenticate to a smart card using the provided management key.
+    """
+    decoded_key = hex_decode(key)
+    key = ffi.new("const char[]", decoded_key)
+    rc = _ykpiv.ykpiv_authenticate(state, key)
+    _assert_ok(rc)
+
+
 def hex_decode(hex_ascii):
     """Decodes `hex_ascii`, a string of hex ascii characters, into the byte representation.
     """

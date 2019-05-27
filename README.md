@@ -18,7 +18,7 @@ no, probably not.
 | `ykpiv_list_readers`               | ✅           | `list_readers`    |
 | `ykpiv_disconnect`                 | ✅           | `disconnect`      |
 | `ykpiv_transfer_data`              | ⛔           |                   |
-| `ykpiv_authenticate`               | ⛔           |                   |
+| `ykpiv_authenticate`               | ✅           | `authenticate`    |
 | `ykpiv_set_mgmkey`                 | ⛔           |                   |
 | `ykpiv_hex_decode`                 | ✅           | `hex_decode`      |
 | `ykpiv_sign_data`                  | ✅           | `sign_data`       |
@@ -39,4 +39,4 @@ no, probably not.
 | `ykpiv_done_with_external_card`    | ⛔           |                   |
 | `ykpiv_verify_select`              | ⛔           |                   |
 | `ykpiv_get_serial`                 | ⛔           |                   |
-| `ykpiv_util_*`                     | ⛔           |                   | 
+| `ykpiv_util_*`                     | ⛔           |                   |
