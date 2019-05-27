@@ -67,8 +67,9 @@ def hex_decode(hex_ascii):
     hex_ascii_len = len(hex_ascii)
     hex_in = ffi.new("const char[]", hex_ascii)
     hex_in_len = ffi.cast("size_t", hex_ascii_len)
-    hex_out = ffi.new("unsigned char *")
-    out_len = ffi.new("size_t *", hex_ascii_len // 2)
+    out_len = hex_ascii_len // 2
+    hex_out = ffi.new("unsigned char[]", out_len)
+    out_len = ffi.new("size_t *", out_len)
     rc = _ykpiv.ykpiv_hex_decode(hex_in, hex_in_len, hex_out, out_len)
     _assert_ok(rc)
     return bytes(ffi.buffer(hex_out, out_len[0]))

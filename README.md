@@ -9,7 +9,7 @@ Tested with a Yubikey Neo and `ykpiv` bundled with version 1.6.1 of `yubico-piv-
 | ykpiv function                     | implemented? | py-ykpiv function |
 |------------------------------------|--------------|-------------------|
 | `ykpiv_init`                       | ✅           | `init`            |
-| `ykpiv_done`                       | ⛔           |                   |
+| `ykpiv_done`                       | ✅           | `done`            |
 | `ykpiv_connect`                    | ✅           | `connect`         |
 | `ykpiv_list_readers`               | ✅           | `list_readers`    |
 | `ykpiv_disconnect`                 | ✅           | `disconnect`      |
