@@ -16,7 +16,7 @@ class TestYKPIV(object):
         ykpiv.connect(TestYKPIV.state, readers[0])
 
     def teardown_class(cls):
-        ykpiv.disconnect(TestYKPIV.state)
+        ykpiv.done(TestYKPIV.state)
 
     def test_hex_decode(self):
         assert ykpiv.hex_decode(b"deadbeef") == b"\xde\xad\xbe\xef"

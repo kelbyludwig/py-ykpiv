@@ -35,6 +35,11 @@ def disconnect(state):
     _assert_ok(rc)
 
 
+def done(state):
+    rc = _ykpiv.ykpiv_done(state)
+    _assert_ok(rc)
+
+
 def verify(state, pin):
     pin = ffi.new("const char[]", pin)
     _tries = ffi.new("int *")
