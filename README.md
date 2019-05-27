@@ -4,6 +4,10 @@ Python bindings for the `ykpiv` library.
 
 Tested with a Yubikey Neo and `ykpiv` bundled with version 1.6.1 of `yubico-piv-tool` on macOS.
 
+# should i use this?
+
+no, probably not.
+
 # support
 
 | ykpiv function                     | implemented? | py-ykpiv function |
