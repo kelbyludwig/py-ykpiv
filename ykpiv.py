@@ -26,7 +26,10 @@ def list_readers(state):
     _assert_ok(rc)
     readers_list_bytes = ffi.unpack(readers, buffer_size)
     readers_list_bytes = readers_list_bytes.rstrip(b"\x00")
-    return readers_list_bytes.split(b"\x00")
+    parts = readers_list_bytes.split(b"\x00")
+    if len(parts) == 1 and parts[0] == b"":
+        return []
+    return parts
 
 
 def connect(state, wanted):
