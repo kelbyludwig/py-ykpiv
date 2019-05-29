@@ -116,6 +116,22 @@ def decipher_data(state, data):
     return ffi.unpack(plaintext_out, plaintext_len[0])
 
 
+def attest(state, key):
+    """Attest to whether a specific key was generated on the smart card.
+
+    Yubico's attestation process is described here:
+    https://developers.yubico.com/yubico-piv-tool/Attestation.html
+
+    TODO(kkl): This is untested as attestation is not supported on my test YK.
+    """
+    key = ffi.cast("const unsigned char", key)
+    attest_data = ffi.new("char []", 256)
+    attest_len = ffi.new("size_t *", 256)
+    rc = _ykpiv.ykpiv_attest(state, key, attest_data, attest_len)
+    _assert_ok(rc)
+    return ffi.unpack(attest_data, attest_len[0])
+
+
 def get_version(state):
     """Get the version string for the connected smart card. 
     """

@@ -22,6 +22,7 @@ no, probably not.
 | `ykpiv_get_version`                | ✅           | `get_version`     |
 | `ykpiv_verify`                     | ✅           | `verify`          |
 | `ykpiv_decipher_data`              | ✅           | `decipher_data`   |
+| `ykpiv_attest`                     | ✅           | `attest`          |
 | `ykpiv_transfer_data`              | ⛔           |                   |
 | `ykpiv_set_mgmkey`                 | ⛔           |                   |
 | `ykpiv_change_pin`                 | ⛔           |                   |
@@ -31,7 +32,6 @@ no, probably not.
 | `ykpiv_set_mgmkey2`                | ⛔           |                   |
 | `ykpiv_save_object`                | ⛔           |                   |
 | `ykpiv_import_private_key`         | ⛔           |                   |
-| `ykpiv_attest`                     | ⛔           |                   |
 | `ykpiv_get_pin_retries`            | ⛔           |                   |
 | `ykpiv_set_pin_retries`            | ⛔           |                   |
 | `ykpiv_connect_with_external_card` | ⛔           |                   |
