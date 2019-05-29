@@ -20,7 +20,7 @@ def list_readers(state):
     """Returns a list of available smart cards.
     """
     buffer_size = 2048
-    readers = ffi.new("char[%d]" % buffer_size)
+    readers = ffi.new("char[]", buffer_size)
     readers_len = ffi.new("size_t *", buffer_size)
     rc = _ykpiv.ykpiv_list_readers(state, readers, readers_len)
     _assert_ok(rc)
