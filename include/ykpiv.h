@@ -34,3 +34,4 @@ ykpiv_rc ykpiv_sign_data(ykpiv_state *state, const unsigned char *sign_in, size_
 ykpiv_rc ykpiv_done(ykpiv_state *state);
 ykpiv_rc ykpiv_get_version(ykpiv_state *state, char *version, size_t len);
 ykpiv_rc ykpiv_authenticate(ykpiv_state *state, unsigned const char *key);
+ykpiv_rc ykpiv_decipher_data(ykpiv_state *state, const unsigned char *enc_in, size_t in_len, unsigned char *enc_out, size_t *out_len, unsigned char algorithm, unsigned char key);

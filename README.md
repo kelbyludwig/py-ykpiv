@@ -21,9 +21,9 @@ no, probably not.
 | `ykpiv_sign_data`                  | ✅           | `sign_data`       |
 | `ykpiv_get_version`                | ✅           | `get_version`     |
 | `ykpiv_verify`                     | ✅           | `verify`          |
+| `ykpiv_decipher_data`              | ✅           | `decipher_data`   |
 | `ykpiv_transfer_data`              | ⛔           |                   |
 | `ykpiv_set_mgmkey`                 | ⛔           |                   |
-| `ykpiv_decipher_data`              | ⛔           |                   |
 | `ykpiv_change_pin`                 | ⛔           |                   |
 | `ykpiv_change_puk`                 | ⛔           |                   |
 | `ykpiv_unblock_pin`                | ⛔           |                   |

@@ -90,6 +90,32 @@ def sign_data(state, data):
     return ffi.unpack(sign_out, out_len[0])
 
 
+def decipher_data(state, data):
+    """Use a slots private key to decrypt `data`.
+
+    TODO(kkl): Both the slot and the algorithm are hardcoded. Parameterize.
+    """
+    # ykpiv_decipher_data assumes input is already padded
+    assert len(data) == 256
+    ciphertext_in = ffi.new("const char []", data)
+    ciphertext_len = ffi.cast("size_t", len(data))
+    plaintext_out = ffi.new("unsigned char[256]")
+    plaintext_len = ffi.new("size_t *", 256)
+    algorithm = ffi.cast("unsigned char", _ykpiv.YKPIV_ALGO_RSA2048)
+    key = ffi.cast("unsigned char", _ykpiv.YKPIV_KEY_SIGNATURE)  # slot 0x9c
+    rc = _ykpiv.ykpiv_decipher_data(
+        state,
+        ciphertext_in,
+        ciphertext_len,
+        plaintext_out,
+        plaintext_len,
+        algorithm,
+        key,
+    )
+    _assert_ok(rc)
+    return ffi.unpack(plaintext_out, plaintext_len[0])
+
+
 def get_version(state):
     """Get the version string for the connected smart card. 
     """

@@ -25,6 +25,20 @@ def test_authenticate():
     ykpiv.done(state)
 
 
+def test_decipher_data():
+    state = ykpiv.init()
+    readers = ykpiv.list_readers(state)
+    assert len(readers) >= 1, "no yubikey detected"
+    assert len(readers) == 1, "multiple yubikeys detected"
+    ykpiv.connect(state, readers[0])
+    ykpiv.verify(state, DEFAULT_PIN)
+    to_decipher = b"A" * 256
+    plaintext = ykpiv.decipher_data(state, to_decipher)
+    assert len(plaintext) == 256
+    assert plaintext != to_decipher
+    ykpiv.done(state)
+
+
 class TestYKPIV(object):
 
     state = None
